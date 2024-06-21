@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var dataController: DataController
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        HomeView(dataController: dataController)
     }
 }
 
