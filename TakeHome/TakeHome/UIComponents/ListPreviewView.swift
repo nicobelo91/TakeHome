@@ -13,24 +13,11 @@ struct ListPreviewView: View {
     var viewMoreAction: () -> Void
     var body: some View {
         VStack(spacing: 8) {
-            HStack {
-                Text(title)
-                    .font(.headline)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .padding(.horizontal)
+            header
             Divider()
             listContent
             Divider()
-            Button(action: viewMoreAction, label: {
-                HStack {
-                   Spacer()
-                   Text("View more")
-                   Spacer()
-                 }
-                 .contentShape(Rectangle())
-            })
+            viewMoreButton
         }
         .padding(.vertical, 8)
         .background {
@@ -40,6 +27,16 @@ struct ListPreviewView: View {
         }
 
         .padding()
+    }
+    
+    private var header: some View {
+        HStack {
+            Text(title)
+                .font(.headline)
+                .fontWeight(.bold)
+            Spacer()
+        }
+        .padding(.horizontal)
     }
     
     private var listContent: some View {
@@ -63,6 +60,17 @@ struct ListPreviewView: View {
 
         }
     }
+    
+    private var viewMoreButton: some View {
+        Button(action: viewMoreAction, label: {
+            HStack {
+               Spacer()
+               Text("View more")
+               Spacer()
+             }
+             .contentShape(Rectangle())
+        })
+    }
 }
 
 extension ListPreviewView {
@@ -70,18 +78,5 @@ extension ListPreviewView {
         var id = UUID()
         var title: String
         var number: String
-    }
-}
-
-struct ListPreviewRow: View {
-    var item: ListPreviewView.Item
-    var body: some View {
-        HStack {
-            Text(item.title)
-            Spacer()
-            Text(item.number)
-        }
-        .padding(.horizontal)
-        
     }
 }

@@ -26,45 +26,53 @@ struct HomeView: View {
         LoadingView(viewModel.isLoading) {
             NavigationStack(path: $path) {
                 VStack {
-                    ListPreviewView(
-                        title: "Every10thCharacterRequest",
-                        items: charactersToItems,
-                        viewMoreAction: { path.append(.characterList) }
-                    )
-                    ListPreviewView(
-                        title: "WordCounterRequest",
-                        items: wordCounterToItems,
-                        viewMoreAction: { path.append(.wordCounterList) }
-                    )
+                    contentView
                     Spacer()
-                    PrimaryButton("Make Call") {
-                        //viewModel.addSampleData()
-                        viewModel.getAboutContent()
-                    }
-                    .disabled(!viewModel.tenthCharacter.isEmpty || !viewModel.wordCounter.isEmpty)
-                    SecondaryButton("Delete Data", color: .red) {
-                        viewModel.deleteAllData()
-                    }
+                    buttonView
                 }
                 .navigationTitle("Concurrent API Calls")
                 .padding()
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case .characterList:
-                        CharactersListView(characters: viewModel.tenthCharacter)
+                        CharactersListView(characters: viewModel.characters)
                     case .wordCounterList:
-                        WordCounterListView(words: viewModel.wordCounter)
+                        WordCounterListView(words: viewModel.words)
                     }
                 }
             }
         }
     }
     
-    private var charactersToItems: [ListPreviewView.Item] {
-        viewModel.tenthCharacter.map { ListPreviewView.Item(title: $0.character, number: $0.order)}
+    private var contentView: some View {
+        VStack {
+            ListPreviewView(
+                title: "Every10thCharacterRequest",
+                items: charactersToItems,
+                viewMoreAction: { path.append(.characterList) }
+            )
+            ListPreviewView(
+                title: "WordCounterRequest",
+                items: wordCounterToItems,
+                viewMoreAction: { path.append(.wordCounterList) }
+            )
+        }
     }
     
+    private var buttonView: some View {
+        PrimaryButton("Make Call") {
+            viewModel.getAboutContent()
+        }
+        .disabled(!viewModel.characters.isEmpty || !viewModel.words.isEmpty)
+    }
+    
+    /// Converts the array of viewModel.tenthCharacter into a list of items that will fit in ListPreviewView
+    private var charactersToItems: [ListPreviewView.Item] {
+        viewModel.characters.map { ListPreviewView.Item(title: $0.character, number: $0.order)}
+    }
+    
+    /// Converts the array of viewModel.wordCounter into a list of items that will fit in ListPreviewView
     private var wordCounterToItems: [ListPreviewView.Item] {
-        viewModel.wordCounter.map { ListPreviewView.Item(title: $0.word, number: "\($0.wordCount)")}
+        viewModel.words.map { ListPreviewView.Item(title: $0.word, number: "\($0.wordCount)")}
     }
 }

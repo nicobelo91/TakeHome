@@ -7,12 +7,6 @@
 
 import Foundation
 
-extension RangeReplaceableCollection {
-    func every(from: Index? = nil, through: Index? = nil, nth: Int) -> Self {
-        .init(stride(from: from, through: through, by: nth))
-    }
-}
-
 extension Collection {
     func stride(from: Index? = nil, through: Index? = nil, by: Int) -> AnySequence<Element> {
         var index = from ?? startIndex

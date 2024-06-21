@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Custom View that shows a ProgressView on top of the content when `isLoading` is true
 struct LoadingView<T>: View where T: View {
     var isLoading: Bool
     var backgroundColor: Color

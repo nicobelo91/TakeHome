@@ -11,11 +11,17 @@ import SwiftUI
 struct CharactersListView: View {
     let characters: [TenthCharacter]
     var body: some View {
-        List(characters) { character in
-            HStack {
-                Text(character.character)
-                Spacer()
-                Text(character.order)
+        Group {
+            if characters.isEmpty {
+                Text("Oops, looks like there's no data...")
+            } else {
+                List(characters) { character in
+                    HStack {
+                        Text(character.character)
+                        Spacer()
+                        Text(character.order)
+                    }
+                }
             }
         }
     }

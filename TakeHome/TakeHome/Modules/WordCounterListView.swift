@@ -10,11 +10,17 @@ import SwiftUI
 struct WordCounterListView: View {
     let words: [WordCounter]
     var body: some View {
-        List(words) { word in
-            HStack {
-                Text(word.word)
-                Spacer()
-                Text("\(word.wordCount)")
+        Group {
+            if words.isEmpty {
+                Text("Oops, looks like there's no data...")
+            } else {
+                List(words) { word in
+                    HStack {
+                        Text(word.word)
+                        Spacer()
+                        Text("\(word.wordCount)")
+                    }
+                }
             }
         }
     }
