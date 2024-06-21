@@ -30,7 +30,7 @@ struct HomeView: View {
                     Spacer()
                     buttonView
                 }
-                .navigationTitle("Concurrent API Calls")
+                .navigationTitle(Constants.navigationTitle)
                 .padding()
                 .navigationDestination(for: Route.self) { route in
                     switch route {
@@ -47,12 +47,12 @@ struct HomeView: View {
     private var contentView: some View {
         VStack {
             ListPreviewView(
-                title: "Every10thCharacterRequest",
+                title: Constants.charactersTitle,
                 items: charactersToItems,
                 viewMoreAction: { path.append(.characterList) }
             )
             ListPreviewView(
-                title: "WordCounterRequest",
+                title: Constants.wordsTitle,
                 items: wordCounterToItems,
                 viewMoreAction: { path.append(.wordCounterList) }
             )
@@ -60,12 +60,15 @@ struct HomeView: View {
     }
     
     private var buttonView: some View {
-        PrimaryButton("Make Call") {
+        PrimaryButton(Constants.buttonTitle, isDisabled: isButtonDisabled) {
             viewModel.getAboutContent()
         }
-        .disabled(!viewModel.characters.isEmpty || !viewModel.words.isEmpty)
+        .disabled(isButtonDisabled)
     }
     
+    private var isButtonDisabled: Bool {
+        !viewModel.characters.isEmpty || !viewModel.words.isEmpty
+    }
     /// Converts the array of viewModel.tenthCharacter into a list of items that will fit in ListPreviewView
     private var charactersToItems: [ListPreviewView.Item] {
         viewModel.characters.map { ListPreviewView.Item(title: $0.character, number: $0.order)}
@@ -74,5 +77,14 @@ struct HomeView: View {
     /// Converts the array of viewModel.wordCounter into a list of items that will fit in ListPreviewView
     private var wordCounterToItems: [ListPreviewView.Item] {
         viewModel.words.map { ListPreviewView.Item(title: $0.word, number: "\($0.wordCount)")}
+    }
+}
+
+extension HomeView {
+    private enum Constants {
+        static let navigationTitle = "Concurrent API Calls"
+        static let charactersTitle = "Every10thCharacterRequest"
+        static let wordsTitle = "WordCounterRequest"
+        static let buttonTitle = "Make Call"
     }
 }

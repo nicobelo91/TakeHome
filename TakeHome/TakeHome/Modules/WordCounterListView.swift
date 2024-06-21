@@ -12,7 +12,7 @@ struct WordCounterListView: View {
     var body: some View {
         Group {
             if words.isEmpty {
-                Text("Oops, looks like there's no data...")
+                Text(Constants.emptyListMessage)
             } else {
                 List(words) { word in
                     HStack {
@@ -23,5 +23,11 @@ struct WordCounterListView: View {
                 }
             }
         }
+    }
+}
+
+extension WordCounterListView {
+    private enum Constants {
+        static let emptyListMessage = "Oops, looks like there's no data..."
     }
 }

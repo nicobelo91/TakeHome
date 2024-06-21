@@ -22,10 +22,9 @@ struct ListPreviewView: View {
         .padding(.vertical, 8)
         .background {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(Color.white)
+                .foregroundStyle(.themeBackground)
                 .shadow(radius: 3)
         }
-
         .padding()
     }
     
@@ -42,17 +41,19 @@ struct ListPreviewView: View {
     private var listContent: some View {
         Group {
             if !items.isEmpty {
+                // Show the first 3 items of the list
                 VStack {
                     ForEach(items.prefix(3)) { item in
                         ListPreviewRow(item: item)
                     }
                 }
             } else {
+                // Show a message indicating that there are no items to show
                 VStack {
                     Image(systemName: "nosign")
                         .imageScale(.large)
                         .foregroundStyle(.gray)
-                    Text("No items were found")
+                    Text(Constants.noItemsMessage)
                         .foregroundStyle(.gray)
                 }
                 .padding(.vertical)
@@ -65,7 +66,7 @@ struct ListPreviewView: View {
         Button(action: viewMoreAction, label: {
             HStack {
                Spacer()
-               Text("View more")
+                Text(Constants.viewMore)
                Spacer()
              }
              .contentShape(Rectangle())
@@ -78,5 +79,10 @@ extension ListPreviewView {
         var id = UUID()
         var title: String
         var number: String
+    }
+    
+    enum Constants {
+        static let noItemsMessage = "No items were found"
+        static let viewMore = "View more"
     }
 }

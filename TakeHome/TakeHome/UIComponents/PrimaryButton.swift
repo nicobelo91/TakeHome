@@ -11,11 +11,13 @@ struct PrimaryButton: View {
     
     var text: String
     var color: Color
+    var isDisabled: Bool
     var action: () -> Void
     
-    init(_ text: String, color: Color = .blue, action: @escaping () -> Void) {
+    init(_ text: String, color: Color = .blue, isDisabled: Bool, action: @escaping () -> Void) {
         self.text = text
         self.color = color
+        self.isDisabled = isDisabled
         self.action = action
     }
     
@@ -24,7 +26,7 @@ struct PrimaryButton: View {
             ZStack {
                 Capsule()
                     .frame(height: 48)
-                    .foregroundColor(color)
+                    .foregroundColor(isDisabled ? .gray : color)
                 Text(self.text)
                     .font(.body)
                     .foregroundColor(.white)

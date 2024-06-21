@@ -13,7 +13,7 @@ struct CharactersListView: View {
     var body: some View {
         Group {
             if characters.isEmpty {
-                Text("Oops, looks like there's no data...")
+                Text(Constants.emptyListMessage)
             } else {
                 List(characters) { character in
                     HStack {
@@ -24,5 +24,11 @@ struct CharactersListView: View {
                 }
             }
         }
+    }
+}
+
+extension CharactersListView {
+    private enum Constants {
+        static let emptyListMessage = "Oops, looks like there's no data..."
     }
 }

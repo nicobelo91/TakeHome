@@ -29,7 +29,7 @@ struct LoadingView<T>: View where T: View {
                 ProgressView()
                     .font(.title2)
                     .frame(width: 60, height: 60)
-                    .background(Color.white)
+                    .background(Color(uiColor: .systemBackground))
                     .cornerRadius(10)
                 
             }

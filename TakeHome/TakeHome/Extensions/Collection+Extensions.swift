@@ -8,6 +8,8 @@
 import Foundation
 
 extension Collection {
+    /// Fetches the values of the array every nth value
+    ///  Eg. To get every 10th value of an array, one could use `array.stride(by: 10)`
     func stride(from: Index? = nil, through: Index? = nil, by: Int) -> AnySequence<Element> {
         var index = from ?? startIndex
         let endIndex = through ?? self.endIndex
