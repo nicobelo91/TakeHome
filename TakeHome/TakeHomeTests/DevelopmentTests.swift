@@ -20,7 +20,7 @@ class DevelopmentTests: BaseTestCase {
     
     func testDeleteSampleData() throws {
         try dataController.createSampleData()
-        try dataController.deleteAll()
+        dataController.deleteAll()
         
         XCTAssertEqual(dataController.count(for: TenthCharacter.fetchRequest()), 0, "There should be no sample characters")
         XCTAssertEqual(dataController.count(for: WordCounter.fetchRequest()), 0, "There should be no sample words")
