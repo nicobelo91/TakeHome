@@ -84,7 +84,7 @@ extension HomeView {
                     try await fetchWordCount(from: urlContent)
                     isLoading = false
                 } catch {
-                    print(error)
+                    print("Failed to populate tables: \(error)")
                 }
             }
         }

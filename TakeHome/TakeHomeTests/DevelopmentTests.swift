@@ -18,4 +18,12 @@ class DevelopmentTests: BaseTestCase {
         XCTAssertEqual(dataController.count(for: WordCounter.fetchRequest()), 6, "There should be 6 sample words")
     }
     
+    func testDeleteSampleData() throws {
+        try dataController.createSampleData()
+        try dataController.deleteAll()
+        
+        XCTAssertEqual(dataController.count(for: TenthCharacter.fetchRequest()), 0, "There should be no sample characters")
+        XCTAssertEqual(dataController.count(for: WordCounter.fetchRequest()), 0, "There should be no sample words")
+    }
+    
 }
