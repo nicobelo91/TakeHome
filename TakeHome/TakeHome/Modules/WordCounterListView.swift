@@ -23,11 +23,13 @@ struct WordCounterListView: View {
                 }
             }
         }
+        .navigationTitle(Constants.navigationTitle)
     }
 }
 
 extension WordCounterListView {
     private enum Constants {
+        static let navigationTitle = "Word Counter"
         static let emptyListMessage = "Oops, looks like there's no data..."
     }
 }

@@ -91,11 +91,16 @@ class DataController: ObservableObject {
     func deleteAll() {
         let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = TenthCharacter.fetchRequest()
         let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
-        _ = try? container.viewContext.execute(batchDeleteRequest1)
         
         let fetchRequest2: NSFetchRequest<NSFetchRequestResult> = WordCounter.fetchRequest()
         let batchDeleteRequest2 = NSBatchDeleteRequest(fetchRequest: fetchRequest2)
-        _ = try? container.viewContext.execute(batchDeleteRequest2)
+        
+        do {
+            try container.viewContext.executeAndMergeChanges(using: batchDeleteRequest1)
+            try container.viewContext.executeAndMergeChanges(using: batchDeleteRequest2)
+        } catch {
+            print(error)
+        }
     }
     
     func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {

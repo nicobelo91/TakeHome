@@ -60,6 +60,7 @@ struct ListPreviewView: View {
             }
 
         }
+        .frame(height: 60)
     }
     
     private var viewMoreButton: some View {

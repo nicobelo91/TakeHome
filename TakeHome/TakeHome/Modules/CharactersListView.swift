@@ -24,11 +24,13 @@ struct CharactersListView: View {
                 }
             }
         }
+        .navigationTitle(Constants.navigationTitle)
     }
 }
 
 extension CharactersListView {
     private enum Constants {
+        static let navigationTitle = "Characters List"
         static let emptyListMessage = "Oops, looks like there's no data..."
     }
 }

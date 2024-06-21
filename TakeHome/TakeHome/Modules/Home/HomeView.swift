@@ -16,6 +16,7 @@ struct HomeView: View {
     @EnvironmentObject var dataController: DataController
     @StateObject var viewModel: ViewModel
     @State private var path: [Route] = []
+    @State private var showDeleteAlert = false
     
     init(dataController: DataController) {
         let viewModel = ViewModel(dataController: dataController)
@@ -28,7 +29,7 @@ struct HomeView: View {
                 VStack {
                     contentView
                     Spacer()
-                    buttonView
+                    buttonsView
                 }
                 .navigationTitle(Constants.navigationTitle)
                 .padding()
@@ -59,11 +60,22 @@ struct HomeView: View {
         }
     }
     
-    private var buttonView: some View {
-        PrimaryButton(Constants.buttonTitle, isDisabled: isButtonDisabled) {
-            viewModel.getAboutContent()
+    private var buttonsView: some View {
+        VStack(spacing: 10) {
+            PrimaryButton(Constants.buttonTitle, isDisabled: isButtonDisabled) {
+                viewModel.getAboutContent()
+            }
+            .disabled(isButtonDisabled)
+            
+            Button(action: { showDeleteAlert = true }, label: {
+                Text(Constants.deleteButtonTitle)
+                    .tint(.red)
+            })
+            .alert(Constants.deleteButtonMessage, isPresented: $showDeleteAlert) {
+                        Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) { viewModel.deleteAll()}
+                    }
         }
-        .disabled(isButtonDisabled)
     }
     
     private var isButtonDisabled: Bool {
@@ -85,6 +97,8 @@ extension HomeView {
         static let navigationTitle = "Concurrent API Calls"
         static let charactersTitle = "Every10thCharacterRequest"
         static let wordsTitle = "WordCounterRequest"
-        static let buttonTitle = "Make Call"
+        static let buttonTitle = "Fetch Data"
+        static let deleteButtonTitle = "Delete All"
+        static let deleteButtonMessage = "Are you sure you want to delete your data?"
     }
 }

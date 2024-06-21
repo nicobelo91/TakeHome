@@ -62,6 +62,10 @@ extension HomeView {
             
         }
         
+        func deleteAll() {
+            dataController.deleteAll()
+        }
+        
         /// Fetches the content from Compass's about page
         func getAboutContent() {
             isLoading = true
@@ -88,7 +92,8 @@ extension HomeView {
         func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
             if let newCharacters = controller.fetchedObjects as? [TenthCharacter] {
                 characters = newCharacters
-            } else if let newWords = controller.fetchedObjects as? [WordCounter] {
+            }
+            if let newWords = controller.fetchedObjects as? [WordCounter] {
                 words = newWords
             }
         }
@@ -104,6 +109,8 @@ extension HomeView {
             // as well as the character itself
             let dictionary = array.indexedDictionary.sorted(by: { $0.key < $1.key})
             
+            // Fetch every tenth item from the dictionary,
+            // starting with the 10th item
             for (index, item) in dictionary.stride(from: 10, by: 10) {
                 let character = TenthCharacter(context: viewContext)
                 character.text = String(item)
