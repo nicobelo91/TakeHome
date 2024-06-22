@@ -13,8 +13,8 @@ import SwiftUI
 /// counting fetch requests, tracking awards, and dealing with sample data.
 class DataController: ObservableObject {
     
-    /// The lone CloudKit container used to store all our data.
-    let container: NSPersistentCloudKitContainer
+    /// The lone container used to store all our data.
+    let container: NSPersistentContainer
     
     
     /// Initializes a data controller, either in memory (for temporary use such as testing and previewing),
@@ -23,7 +23,7 @@ class DataController: ObservableObject {
     /// Defaults to permanent storage
     /// - Parameter inMemory: Whether to store this data in temporary memory or not.
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "Database")
+        container = NSPersistentContainer(name: "Database")
         
         // For testing and previewing purposes, we create a temporary
         // in memory database by writing to /dev/null so our data is
