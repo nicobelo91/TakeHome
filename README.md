@@ -39,8 +39,8 @@ Built with:
 
 A few of the things you can do with TakeHome:
 
-* Fetch every 10th character from Compass's about page
-* Do a word count for all words in Compass's about page
+* Fetch every 10th character from Compass's about page or from a Lorem Ipsum text
+* Do a word count for all words in Compass's about page or in a Lorem Ipsum text
 * Cache your data in the device
 
 [swift-image]:https://img.shields.io/badge/swift-5.8-orange.svg
