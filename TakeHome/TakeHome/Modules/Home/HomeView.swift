@@ -62,11 +62,21 @@ struct HomeView: View {
     
     private var buttonsView: some View {
         VStack(spacing: 10) {
-            PrimaryButton(Constants.buttonTitle, isDisabled: isButtonDisabled) {
+            // Button that fetches the content of Compass's About page
+            // and populates the tables with their corresponding content
+            PrimaryButton(Constants.compassButtonTitle, isDisabled: isButtonDisabled) {
                 viewModel.getAboutContent()
             }
             .disabled(isButtonDisabled)
             
+            // Button that fetches Lorem Ipsum text
+            // and populates the tables with their corresponding content
+            PrimaryButton(Constants.loremIpsumButtonTitle, color: .teal, isDisabled: isButtonDisabled) {
+                viewModel.getLoremIpsumText()
+            }
+            .disabled(isButtonDisabled)
+            
+            // Button to delete all cached data
             Button(action: { showDeleteAlert = true }, label: {
                 Text(Constants.deleteButtonTitle)
                     .tint(.red)
@@ -97,7 +107,8 @@ extension HomeView {
         static let navigationTitle = "Concurrent API Calls"
         static let charactersTitle = "Every10thCharacterRequest"
         static let wordsTitle = "WordCounterRequest"
-        static let buttonTitle = "Fetch Data"
+        static let compassButtonTitle = "Fetch Compass About Text"
+        static let loremIpsumButtonTitle = "Fetch Lorem Ipsum Text"
         static let deleteButtonTitle = "Delete All"
         static let deleteButtonMessage = "Are you sure you want to delete your data?"
     }

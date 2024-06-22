@@ -89,6 +89,18 @@ extension HomeView {
             }
         }
         
+        /// Fetches the content from `customText`
+        func getLoremIpsumText() {
+            Task {
+                do {
+                    try await fetchEveryTenthCharacter(from: customText)
+                    try await fetchWordCount(from: customText)
+                } catch {
+                    print("Failed to populate tables: \(error)")
+                }
+            }
+        }
+        
         func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
             if let newCharacters = controller.fetchedObjects as? [TenthCharacter] {
                 characters = newCharacters
