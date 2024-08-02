@@ -63,7 +63,9 @@ extension HomeView {
         }
         
         func deleteAll() {
+            isLoading = true
             dataController.deleteAll()
+            isLoading = false
         }
         
         /// Fetches the content from Compass's about page
